@@ -1,25 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {Fragment, useState} from 'react';
+import Header from './components/Header';
+import Form from './components/Form';
+import Message from './components/Message';
+import Result from './components/Result';
 
-function App() {
+
+const App = () => {
+
+  const [entry, setEntry] = useState(0);
+  const [term, setTerm] = useState("");
+  const [totalPay, setTotalPay] = useState(0);
+  
+
+  let component;
+
+if(totalPay === 0){
+    component = <Message />
+  } else{
+    component = <Result 
+      
+      totalPay={totalPay}
+      term={term}
+      entry={entry}
+
+    />
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      <Fragment>
+        <Header 
+          title="Cotizador de Prestamos"
+        />
+
+        <div className='container'>
+          <Form 
+            entry={entry}
+            setEntry={setEntry}
+            term={term}
+            setTerm={setTerm}
+            totalPay={totalPay}
+            setTotalPay={setTotalPay}
+          />
+          <div className='mensajes'>
+            {component}
+          </div>
+        </div>
+      </Fragment>
+  )
 }
 
 export default App;
